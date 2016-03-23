@@ -1,0 +1,27 @@
+{
+  "name": "console-at",
+  "version": "1.0.0",
+  "description": "Add console functions that also output where the call was made.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gi60s/console-at.git"
+  },
+  "keywords": [
+    "console",
+    "line",
+    "number",
+    "file",
+    "name",
+    "trace"
+  ],
+  "author": "James Speirs",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/Gi60s/console-at/issues"
+  },
+  "homepage": "https://github.com/Gi60s/console-at#readme"
+}
