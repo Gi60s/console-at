@@ -1,6 +1,6 @@
 {
   "name": "console-at",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Add console functions that also output where the call was made.",
   "main": "index.js",
   "scripts": {
@@ -12,11 +12,12 @@
   },
   "keywords": [
     "console",
-    "line",
-    "number",
-    "file",
-    "name",
-    "trace"
+    "column number",
+    "line number",
+    "file name",
+    "position",
+    "trace",
+    "stack"
   ],
   "author": "James Speirs",
   "license": "Apache-2.0",
