@@ -1,31 +1,21 @@
 "use strict";
 
-['assert', 'dir', 'error', 'info', 'log', 'warn'].forEach(function(key) {
-    var fn = console[key];
-    fn.at = function() {
-        var source = getSource(3);
-        arguments[arguments.length] = '\n  at ' + source.source;
-        arguments.length++;
-        fn.apply(console, arguments);
-    }
-});
-
-
-
 /**
  * Determine the file path, line number, and column number of where this
  * function was called from.
- * @param {number} backDepth Specify the number of lines to look back
+ * @param {number} [backDepth=0] Specify the number of lines to look back
  * on the stack trace.
  * @returns {{col: number, file: string, line: number, method: string, position: number, source: string}}
  */
-function getSource(backDepth) {
+module.exports = function(backDepth) {
     var err;
     var length;
     var orig;
     var result;
     var source;
     var stack;
+
+    if (arguments.length === 0) backDepth = 0;
 
     // initialize the result object
     result = {
@@ -42,12 +32,12 @@ function getSource(backDepth) {
     orig = Error.prepareStackTrace;
 
     // set the stack trace to the needed depth and overwrite the prepare stack trace function
-    Error.stackTraceLimit = backDepth;
+    Error.stackTraceLimit = backDepth + 1;
     Error.prepareStackTrace = prepareStackTrace;
 
     // capture the stack trace
     err = {};
-    Error.captureStackTrace(err, source);
+    Error.captureStackTrace(err, module.exports);
     stack = err.stack;
 
     // restore the prepare stack trace and stack limit
@@ -55,7 +45,7 @@ function getSource(backDepth) {
     Error.prepareStackTrace = orig;
 
     // get the first item from the stack
-    source = stack[backDepth - 1];
+    source = stack[backDepth];
 
     // update the result
     if (source) {
@@ -77,7 +67,18 @@ function getSource(backDepth) {
     });
 
     return result;
-}
+};
+
+['assert', 'dir', 'error', 'info', 'log', 'warn'].forEach(function(key) {
+    var fn = console[key];
+    fn.at = function() {
+        var newline = typeof arguments[0] !== 'string';
+        var source = module.exports(3);
+        arguments[arguments.length] = (newline ? '' : '\n  ') + 'at ' + source.source;
+        arguments.length++;
+        fn.apply(console, arguments);
+    }
+});
 
 function prepareStackTrace(_, stack) {
     return stack;

@@ -1,10 +1,10 @@
 {
   "name": "console-at",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Add console functions that also output where the call was made.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha tests/index.test.js"
   },
   "repository": {
     "type": "git",
@@ -23,5 +23,9 @@
   "bugs": {
     "url": "https://github.com/Gi60s/console-at/issues"
   },
-  "homepage": "https://github.com/Gi60s/console-at#readme"
+  "homepage": "https://github.com/Gi60s/console-at#readme",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.4.5"
+  }
 }
